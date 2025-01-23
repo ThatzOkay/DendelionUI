@@ -1,0 +1,53 @@
+{
+  "name": "dendelion-ui",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/apldendelion-uiayer.umd.js",
+  "module": "./dist/dendelion-ui.es.js",
+  "typings": "./dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/dendelion-ui.es.js",
+      "require": "./dist/dendelion-ui.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "cross-env MODE=demo npm run vite",
+    "vite": "vite",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run build:lib && npm run build:tsc",
+    "build:lib": "cross-env MODE=lib vite build",
+    "build:tsc": "vue-tsc --emitDeclarationOnly",
+    "build:demo": "cross-env MODE=demo vite build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "lint": "eslint ",
+    "lint:fix": "eslint --fix ",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "cross-env": "^7.0.3",
+    "daisyui": "^4.12.23",
+    "eslint": "^9.17.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "fluid-tailwind": "^1.0.4",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.19.1",
+    "vite": "^6.0.5",
+    "vue-tsc": "^2.2.0"
+  }
+}
