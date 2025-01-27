@@ -3,7 +3,9 @@ export enum Size {
     SM,
     MD,
     LG,
-    XL
+    XL,
+    TWOXL,
+    THREEXL
 }
 
 export class SizeUtils {
@@ -19,6 +21,10 @@ export class SizeUtils {
                 return 'lg'
             case Size.XL:
                 return 'xl'
+            case Size.TWOXL:
+                return '2xl'
+            case Size.THREEXL:
+                return '3xl'
             default:
                 return 'md'
         }

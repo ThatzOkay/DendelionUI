@@ -48,6 +48,10 @@ export default {
     'text-warning-content',
     'text-error',
     'text-error-content',
+    'step',
+    'steps',
+    'modal',
+    'modal-box'
   ],
 }
 

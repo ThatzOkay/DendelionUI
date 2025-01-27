@@ -1,5 +1,5 @@
 <template>
-    <div class="card" :class="classes" >
+    <div :class="classes" >
         <slot></slot>
     </div>
 </template>
@@ -20,5 +20,6 @@ const classes = ref(classNames('card',
     `bg-${props.backgroundColor}`,
     props.shadow ? 'shadow-lg' : '',
     props.fullWidth ? 'w-full' : '',
+    props.rounded && !props.roundedSize ? 'rounded' : props.roundedSize ? `rounded-${props.roundedSize}` : '',
 ));
 </script>

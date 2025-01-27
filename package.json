@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "main": "./dist/apldendelion-uiayer.umd.js",
   "module": "./dist/dendelion-ui.es.js",
