@@ -1,7 +1,25 @@
 {
   "name": "dendelion-ui",
   "private": false,
+  "description": "Simpel component library using Tailwind css and DaisyUI",
   "version": "0.0.1",
+  "author": "ThatzOkay",
+  "license": "MIT",
+  "homepage": "https://github.com/ThatzOkay/DendelionUI#readme",
+  "repository": {
+    "url": "git+https://github.com/ThatzOkay/DendelionUI.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/ThatzOkay/DendelionUI/issues"
+  },
+  "keywords": [
+    "Tailwind",
+    "DaisyUI",
+    "Vue",
+    "Component",
+    "Library"
+  ],
   "type": "module",
   "files": [
     "dist",
