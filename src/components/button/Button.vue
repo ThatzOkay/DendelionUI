@@ -11,11 +11,9 @@ import { ButtonProps } from './interface';
 import classNames from 'classnames';
 import { ref } from 'vue';
 
-
-
 const props = withDefaults(defineProps<ButtonProps>(), {
   type: 'button',
-  color: Color.Primary
+  color: Color.Neutral
 })
 
 const classes = ref(classNames('btn', 
