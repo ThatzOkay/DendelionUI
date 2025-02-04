@@ -9,7 +9,7 @@
 import { Color, ColorUtils } from '@/types/color';
 import { ButtonProps } from './interface';
 import classNames from 'classnames';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   type: 'button',
@@ -21,4 +21,12 @@ const classes = ref(classNames('btn',
   `btn-${ColorUtils.toClassName(props.color)}`,
   props.loading ? 'is-loading' : '',
 ))
+
+watch(() => props.loading, (loading: boolean) => {
+  classes.value = classNames('btn', 
+    'group',
+    `btn-${ColorUtils.toClassName(props.color)}`,
+    loading ? 'is-loading' : '',
+  )
+})
 </script>
