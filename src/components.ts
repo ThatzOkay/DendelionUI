@@ -4,3 +4,4 @@ export * from './components/container';
 export * from './components/table';
 export * from './components/stepper';
 export * from './components/modal';
+export * from './components/search';

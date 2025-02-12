@@ -2,7 +2,7 @@
   "name": "dendelion-ui",
   "private": false,
   "description": "Simpel component library using Tailwind css and DaisyUI",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": "ThatzOkay",
   "license": "MIT",
   "homepage": "https://github.com/ThatzOkay/DendelionUI#readme",
@@ -60,13 +60,13 @@
     "@vue/tsconfig": "^0.7.0",
     "cross-env": "^7.0.3",
     "daisyui": "^4.12.23",
-    "eslint": "^9.17.0",
+    "eslint": "^9.20.1",
     "eslint-plugin-vue": "^9.32.0",
     "fluid-tailwind": "^1.0.4",
     "rimraf": "^6.0.1",
     "typescript": "~5.7.0",
-    "typescript-eslint": "^8.19.1",
-    "vite": "^6.0.5",
+    "typescript-eslint": "^8.24.0",
+    "vite": "^6.1.0",
     "vue-tsc": "^2.2.0"
   }
 }
