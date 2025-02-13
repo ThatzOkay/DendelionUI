@@ -1,19 +1,22 @@
 import { Size } from "@/types";
+import { Component, VNode } from "vue";
 
-export type TableProps = {
+export type TableProps<T> = {
     zebra?: boolean;
     pinRows?: boolean;
     pinCols?: boolean;
-    size: Size
-    columns: Column[];
-    dataSource: Record<string, unknown>[];
-    ajax?: (params: object) => Promise<object>;
+    size?: Size
+    columns: Column<T>[];
+    dataSource: T[];
+    ajax?: (params: object) => Promise<object> | string;
+    searchValue?: string;
+    searchFunction?: (searchValue: string) => T[];
 }
 
-export type Column = {
+export type Column<T> = {
     title: string;
     data: string;
-    render?: (text: string, record?: Record<string, unknown>) => string;
+    render?: (text: string, row: T) => string | Component | VNode;
     extraClasses?: ExtraClasses;
 }
 

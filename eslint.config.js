@@ -25,11 +25,12 @@ export default [
     },
   },
   {
-    ignores: ["dist/", "docs/", "demo/dist", "docs-old/"], // Use `ignores` instead of `ignorePatterns`
+    ignores: ["dist/", "docs/", "demo/dist", "docs-old/"],
   },
   {
     rules: {
-      "vue/multi-word-component-names": "off", // This disables the rule globally
+      "vue/multi-word-component-names": "off", 
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];
