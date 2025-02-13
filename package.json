@@ -25,7 +25,7 @@
     "dist",
     "src"
   ],
-  "main": "./dist/apldendelion-uiayer.umd.js",
+  "main": "./dist/dendelion-ui.umd.js",
   "module": "./dist/dendelion-ui.es.js",
   "typings": "./dist/types/index.d.ts",
   "types": "./dist/types/index.d.ts",
