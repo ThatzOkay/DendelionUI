@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, SizeUtils } from '@/types';
