@@ -8,8 +8,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="row in filteredDataSource" v-bind:key="String(row)">
-                <td v-for="column in props.columns" v-bind:key="column.title" v-html="column.render ? column.render(getValue(row, column.data), row as T) : getValue(row, column.data) ">                    
+            <tr v-if="filteredDataSource.length === 0">
+                <td :colspan="props.columns.length">
+                    No data found
+                </td>
+            </tr>
+            <tr v-else v-for="row in filteredDataSource" v-bind:key="String(row)">
+                <td v-for="column in props.columns" v-bind:key="column.title">
+                    <template v-if="!column.render">
+                        {{ getValue(row, column.data) }}
+                    </template>
+                    <template v-if="typeof column.render === 'function'">
+                        <div v-if="typeof column.render(getValue(row, column.data), row as T) === 'string'"
+                            v-html="column.render(getValue(row, column.data), row as T)" />
+                        <component v-else :is="column.render(getValue(row, column.data), row as T)" />
+                    </template>
                 </td>
             </tr>
         </tbody>
@@ -54,10 +67,10 @@ onMounted(() => {
     filteredDataSource.value = props.dataSource;
 });
 
-watch (() => props.dataSource, (value) => {
+watch(() => props.dataSource, (value) => {
     originalDataSource.value = value;
     filteredDataSource.value = value;
-});
+}, { immediate: true });
 
 watch(() => props.searchValue, (value) => {
     if (props.searchFunction) {
@@ -65,7 +78,7 @@ watch(() => props.searchValue, (value) => {
         return;
     }
     filteredDataSource.value = value ? doFuzzySearch(value) : originalDataSource.value;
-});
+}, { immediate: true });
 
 const doFuzzySearch = (value: string): T[] => {
     const foundRows: T[] = [];
