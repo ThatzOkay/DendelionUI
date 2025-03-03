@@ -10,7 +10,7 @@
             </svg>
             <div class="w-full max-w-full relative">
                 <form>
-                    <input ref="searchInput" type="search" placeholder="Zoeken..." @input="emit('input', ($event.target as HTMLInputElement).value)"
+                    <input ref="searchInput" type="search" placeholder="Zoeken..." :value="props.modelValue" @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
                         class="bg-transparent color-[inherit] border-[2px] border-solid border-transparent focus:border-[2px] focus:border-base-200 focus:outline-none rounded-xl w-full px-3 py-2 ps-10">
                 </form>
             </div>
@@ -26,9 +26,11 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 
+const props = defineProps(['modelValue']);
+
 const searchInput = ref<HTMLInputElement | null>(null);
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
 
 const handleKeyPress = (event: KeyboardEvent) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {

@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, SizeUtils } from '@/types';
@@ -25,9 +25,6 @@ import createFuzzySearch from '@nozbe/microfuzz'
 
 const originalDataSource = ref<T[]>([]);
 const filteredDataSource = ref<T[]>([]);
-const fuzzyDataSource = computed(() => {
-    return createFuzzySearch(originalDataSource.value);
-});
 
 const table = ref<HTMLTableElement | null>(null)
 
@@ -52,13 +49,43 @@ const getValue = (obj: any, keyPath: string): string => {
     );
 };
 
+onMounted(() => {
+    originalDataSource.value = props.dataSource;
+    filteredDataSource.value = props.dataSource;
+});
+
+watch (() => props.dataSource, (value) => {
+    originalDataSource.value = value;
+    filteredDataSource.value = value;
+});
+
 watch(() => props.searchValue, (value) => {
     if (props.searchFunction) {
         filteredDataSource.value = props.searchFunction(value ?? "");
         return;
     }
-
-    filteredDataSource.value = value ? fuzzyDataSource.value(value) as T[] : originalDataSource.value;
+    filteredDataSource.value = value ? doFuzzySearch(value) : originalDataSource.value;
 });
+
+const doFuzzySearch = (value: string): T[] => {
+    const foundRows: T[] = [];
+    if (originalDataSource.value.length > 0) {
+        const dataKeys = Object.keys(originalDataSource.value[0] as object);
+
+        dataKeys.forEach((key) => {
+            const list = originalDataSource.value.map((row) => getValue(row, key));
+            const fuzzySearch = createFuzzySearch(list);
+            const found = fuzzySearch(value);
+            for (const item of found) {
+                const matchingItems = originalDataSource.value.filter((i) => getValue(i, key) === item.item);
+                foundRows.push(...matchingItems as T[]);
+            }
+        });
+
+        return foundRows;
+    }
+
+    return [];
+}
 
 </script>
