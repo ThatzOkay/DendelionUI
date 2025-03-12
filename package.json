@@ -2,7 +2,7 @@
   "name": "dendelion-ui",
   "private": false,
   "description": "Simpel component library using Tailwind css and DaisyUI",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "ThatzOkay",
   "license": "MIT",
   "homepage": "https://github.com/ThatzOkay/DendelionUI#readme",
