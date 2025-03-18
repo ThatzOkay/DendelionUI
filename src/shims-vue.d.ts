@@ -5,7 +5,6 @@ declare module '*.vue' {
     const component: DefineComponent<
       Record<string, unknown>,
       Record<string, unknown>,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       any
     >
     export default component

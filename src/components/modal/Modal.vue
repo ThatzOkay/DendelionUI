@@ -1,11 +1,15 @@
 <template>
-    <dialog ref="modal" :class="classes" aria-modal="true" aria-hidden="true" role="dialog" @close="(e) => emit('close', e)" >
-        <div className="modal-box">
+    <dialog ref="modal" :class="classes" aria-modal="true" aria-hidden="true" role="dialog"
+        @close="(e) => emit('close', e)">
+        <div class="modal-box">
             <form v-if="closeButton" method="dialog">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                <button :class="closeButtonClasses">✕</button>
             </form>
             <slot></slot>
         </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
     </dialog>
 </template>
 
@@ -13,6 +17,7 @@
 import { ref } from 'vue';
 import { ModalProps } from './interface';
 import classNames from 'classnames';
+import { ButtonSize, ButtonSizeUtils } from '@/types';
 
 const modal = ref<HTMLDialogElement | null>(null);
 
@@ -20,12 +25,15 @@ const emit = defineEmits(['close']);
 
 const props = withDefaults(defineProps<ModalProps>(), {
     closeButton: true,
-    overflow: false
+    overflow: false,
+    closeButtonSize: ButtonSize.SM
 });
 
 const classes = ref(classNames('modal', {
     'overflow-visible': props.overflow
 }));
+
+const closeButtonClasses = ref(classNames('btn', ButtonSizeUtils.toClassName(props.closeButtonSize), 'btn-circle', 'btn-ghost', 'absolute', 'right-2', 'top-2'));
 
 const showModal = () => {
     modal.value?.showModal();

@@ -8,18 +8,18 @@
 import classNames from 'classnames';
 import { ref } from 'vue';
 import { CardProps } from './interface';
-import { Color, ColorUtils, SizeUtils } from '@/types';
+import { BackgroundColor, BackgroundColorUtils, RoundedSizeUtils } from '@/types';
 
 const props = withDefaults(defineProps<CardProps>(), {
-    backgroundColor: Color.Primary,
+    backgroundColor: BackgroundColor.Primary,
     shadow: false,
     fullWidth: false,
 });
 
 const classes = ref(classNames('card',
-    `bg-${ColorUtils.toClassName(props.backgroundColor)}`,
+    BackgroundColorUtils.toClassName(props.backgroundColor),
     props.shadow ? 'shadow-lg' : '',
     props.fullWidth ? 'w-full' : '',
-    props.rounded && !props.roundedSize ? 'rounded' : props.roundedSize ? `rounded-${SizeUtils.toClassName(props.roundedSize)}` : '',
+    props.rounded && !props.roundedSize ? 'rounded' : props.roundedSize ? RoundedSizeUtils.toClassName(props.roundedSize) : '',
 ));
 </script>

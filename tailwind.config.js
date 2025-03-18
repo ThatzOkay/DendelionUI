@@ -2,7 +2,7 @@ import daisyui from "daisyui"
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js,vue}", "./demo/src/**/*.{html,js,vue}"],
+  content: ["./src/**/*.{html,js,vue,ts}", "./demo/src/**/*.{html,js,vue}"],
   theme: {
     extend: {},
   },
