@@ -8,10 +8,10 @@
 import classNames from 'classnames';
 import { ref } from 'vue';
 import { CardProps } from './interface';
-import { BackgroundColor, BackgroundColorUtils, RoundedSizeUtils } from '@/types';
+import { Color, BackgroundColorUtils, RoundedSizeUtils } from '@/types';
 
 const props = withDefaults(defineProps<CardProps>(), {
-    backgroundColor: BackgroundColor.Primary,
+    backgroundColor: Color.Primary,
     shadow: false,
     fullWidth: false,
 });

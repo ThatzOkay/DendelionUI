@@ -17,7 +17,7 @@
 import { ref } from 'vue';
 import { ModalProps } from './interface';
 import classNames from 'classnames';
-import { ButtonSize, ButtonSizeUtils } from '@/types';
+import { Size, ButtonSizeUtils } from '@/types';
 
 const modal = ref<HTMLDialogElement | null>(null);
 
@@ -26,7 +26,7 @@ const emit = defineEmits(['close']);
 const props = withDefaults(defineProps<ModalProps>(), {
     closeButton: true,
     overflow: false,
-    closeButtonSize: ButtonSize.SM
+    closeButtonSize: Size.SM
 });
 
 const classes = ref(classNames('modal', {

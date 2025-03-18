@@ -33,7 +33,7 @@
 import { onMounted, ref, watch } from 'vue';
 import { TableProps } from './interface';
 import classNames from 'classnames';
-import { TableSize, TableSizeUtils } from '@/types';
+import { Size, TableSizeUtils } from '@/types';
 import createFuzzySearch from '@nozbe/microfuzz'
 
 const originalDataSource = ref<T[]>([]);
@@ -42,7 +42,7 @@ const filteredDataSource = ref<T[]>([]);
 const table = ref<HTMLTableElement | null>(null)
 
 const props = withDefaults(defineProps<TableProps<T>>(), {
-    size: TableSize.MD,
+    size: Size.MD,
     zebra: false,
     pinRows: false,
     pinCols: false,

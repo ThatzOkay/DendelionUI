@@ -1,9 +1,9 @@
-import { BackgroundColor, RoundedSize } from "@/types";
+import { Color, Size } from "@/types";
 
 export type CardProps = {
-    backgroundColor?: BackgroundColor,
+    backgroundColor?: Color,
     shadow?: boolean,
     fullWidth?: boolean,
     rounded?: boolean,
-    roundedSize?: RoundedSize
+    roundedSize?: Size
 };

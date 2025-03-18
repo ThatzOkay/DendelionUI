@@ -1,11 +1,13 @@
-import { ButtonColor } from "@/types";
+import { Color } from "@/types";
 
 export type Type = 'button' | 'submit' | 'reset';
 
 export type ButtonProps = {
     type?: Type,
     loading?: boolean,
-    color?: ButtonColor,
+    color?: Color,
+    soft?: boolean,
+    outline?: boolean,
     disabled?: boolean,
     click?: () => void,
   };

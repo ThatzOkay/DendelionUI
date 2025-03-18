@@ -1,11 +1,11 @@
-import { TableSize } from "@/types";
+import { Size } from "@/types";
 import { Component, VNode } from "vue";
 
 export type TableProps<T> = {
     zebra?: boolean;
     pinRows?: boolean;
     pinCols?: boolean;
-    size?: TableSize
+    size?: Size
     columns: Column<T>[];
     dataSource: T[];
     ajax?: (params: object) => Promise<object> | string;

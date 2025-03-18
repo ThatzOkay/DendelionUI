@@ -1,9 +1,9 @@
-import { ButtonSize } from "@/types";
+import { Size } from "@/types";
 
 export type ModalProps = {
     closeButton?: boolean;
     overflow?: boolean;
-    closeButtonSize?: ButtonSize;
+    closeButtonSize?: Size;
 }
 
 export interface Modal {

@@ -6,19 +6,23 @@
 </template>
 
 <script setup lang="ts">
-import { ButtonColor, ButtonColorUtils } from '@/types';
+import { Color, ButtonColorUtils } from '@/types';
 import { ButtonProps } from './interface';
 import classNames from 'classnames';
 import { computed } from 'vue';
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   type: 'button',
-  color: ButtonColor.Neutral
+  color: Color.Neutral,
+  soft: false,
+  outline: false,
 })
 
 const classes = computed(() => classNames('btn', 
   'group',
   ButtonColorUtils.toClassName(props.color),
+  props.soft ? 'btn-soft' : '',
+  props.outline ? 'btn-outline' : '',
   props.loading ? 'is-loading' : '',
   props.disabled ? 'disabled' : ''
 ))
