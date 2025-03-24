@@ -1,7 +1,7 @@
 <template>
-    <dialog ref="modal" :class="classes" aria-modal="true" aria-hidden="true" role="dialog"
+    <dialog ref="modal" :class="[classes, $attrs.class]" aria-modal="true" aria-hidden="true" role="dialog"
         @close="(e) => emit('close', e)">
-        <div class="modal-box">
+        <div :class="boxClasses">
             <form v-if="closeButton" method="dialog">
                 <button :class="closeButtonClasses">✕</button>
             </form>
@@ -28,6 +28,8 @@ const props = withDefaults(defineProps<ModalProps>(), {
     overflow: false,
     closeButtonSize: Size.SM
 });
+
+const boxClasses = ref(classNames('modal-box', props.extraBoxClasses));
 
 const classes = ref(classNames('modal', {
     'overflow-visible': props.overflow
