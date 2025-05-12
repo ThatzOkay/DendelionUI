@@ -65,7 +65,7 @@
     "cross-env": "^7.0.3",
     "daisyui": "^4.12.24",
     "eslint": "^9.26.0",
-    "eslint-plugin-vue": "^9.33.0",
+    "eslint-plugin-vue": "^10.0.0",
     "fluid-tailwind": "^1.0.4",
     "prettier": "^3.5.3",
     "prettier-eslint": "^16.4.2",
