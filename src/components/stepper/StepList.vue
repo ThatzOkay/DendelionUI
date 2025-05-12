@@ -1,8 +1,7 @@
 <template>
-  <ul class="steps">
-    <slot></slot>
-  </ul>
+	<ul class="steps">
+		<slot></slot>
+	</ul>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>

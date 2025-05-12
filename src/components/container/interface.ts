@@ -1,5 +1,4 @@
-
 export type ContainerProps = {
-    container?: boolean,
-    padding?: boolean
+	container?: boolean;
+	padding?: boolean;
 };

@@ -1,4 +1,3 @@
-
 export type StepperProps = {
-    value: string;
-}
+	value: string;
+};

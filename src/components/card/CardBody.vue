@@ -1,9 +1,7 @@
 <template>
-    <div class="card-body">
-        <slot></slot>
-    </div>
+	<div class="card-body">
+		<slot></slot>
+	</div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>

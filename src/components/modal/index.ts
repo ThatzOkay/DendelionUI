@@ -1,2 +1,2 @@
-export {default as Modal} from './Modal.vue';
-export type {ModalProps} from './interface';
+export { default as Modal } from './Modal.vue';
+export type { ModalProps } from './interface';
