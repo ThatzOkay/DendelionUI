@@ -11,6 +11,7 @@ export type TableProps<T> = {
 	ajax?: (params: object) => Promise<object> | string;
 	searchValue?: string;
 	searchFunction?: (searchValue: string) => T[];
+	onRowClick?: (row: T, rowIndex: number) => Promise<void> | void;
 };
 
 export type Column<T> = {

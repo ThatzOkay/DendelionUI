@@ -11,7 +11,7 @@
 			<tr v-if="filteredDataSource.length === 0">
 				<td :colspan="props.columns.length">No data found</td>
 			</tr>
-			<tr v-else v-for="row in filteredDataSource" v-bind:key="String(row)">
+			<tr :class="props.onRowClick ? 'hover' : ''" v-else v-for="(row, rowIndex) in filteredDataSource" v-bind:key="String(row)" @click="handleRowClick(row as T, rowIndex)">
 				<td v-for="column in props.columns" v-bind:key="column.title">
 					<template v-if="!column.render">
 						{{ getValue(row, column.data) }}
@@ -59,6 +59,12 @@ const tableClasses = ref(
 		'table-pin-cols	': props.pinCols,
 	}),
 );
+
+const handleRowClick = (row: T, rowIndex: number) => {
+	if (props.onRowClick) {
+		props.onRowClick(row, rowIndex);
+	}
+}
 
 //I'll figure pagination later
 const getValue = (obj: any, keyPath: string): string => {
