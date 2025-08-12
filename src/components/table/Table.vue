@@ -21,6 +21,9 @@
 							v-if="typeof column.render(getValue(row, column.data), row as T) === 'string'"
 							v-html="column.render(getValue(row, column.data), row as T)"
 						/>
+
+						<component v-else-if="isVNode(column.render(getValue(row, column.data), row as T))" :is="column.render(getValue(row, column.data), row as T)" />
+
 						<component
 							v-else
 							:is="getComponent((column.render(getValue(row, column.data), row as T) as ColumnComponent).component)"
@@ -34,10 +37,11 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { Component, defineAsyncComponent, onMounted, ref, watch } from 'vue';
+import { defineAsyncComponent, isVNode, onMounted, ref, watch } from 'vue';
+import type { Component } from 'vue';
 import { Column, ColumnComponent, ComponentImport, ComponentOrImport, TableProps } from './interface';
 import classNames from 'classnames';
-import { Size, TableSizeUtils } from '@/types';
+import { Size, TableSizeUtils } from '../../types';
 import createFuzzySearch from '@nozbe/microfuzz';
 
 const originalDataSource = ref<T[]>([]);
@@ -83,6 +87,7 @@ const getProps = (row: any, column: Column<T>) => {
 };
 
 const getComponent = (component: ComponentOrImport) => {
+	console.log('getComponent', component);
 	if (component && typeof component === 'object' && 'then' in component) {
 		return defineAsyncComponent(() => component as ComponentImport);
 	}

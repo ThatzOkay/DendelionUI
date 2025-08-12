@@ -3,6 +3,9 @@
         <SimpleButton />
         <SearchBar v-model="searchValue" />
         <Table :dataSource="dataSource" :columns="columns" :searchValue="searchValue" />
+        <Modal extraBoxClasses="bg-base-100" :closeButton="true" @close="() => console.log('Modal closed')">
+            <p>This is a modal dialog.</p>
+        </Modal>
     </div>
 </template>
 
@@ -11,6 +14,7 @@
 import { h, ref } from 'vue';
 import { Table, SearchBar, Column } from '../../src/index'
 import SimpleButton from '../../src/components/button/SimpleButton.vue';
+import Modal from '../../src/components/modal/Modal.vue';
 
 const searchValue = ref<string>('')
 
@@ -30,16 +34,16 @@ const columns: Column<any>[] = [
     {
         title: 'Action',
         data: '',
-        render: () => {
-            return renderButton();
+        render: (_text: string, _row: any) => {
+            return h('button', { class: 'btn btn-neutral-content', onClick: () => console.log('clicked', _row) }, { default: () => 'Click me' });
         }
     }
 ]
 
 
-const renderButton = () => {
-  return h('div', 'Button');
-};
+// const renderButton = () => {
+//   return h('div', 'Button');
+// };
 
 const dataSource = ref([
     {

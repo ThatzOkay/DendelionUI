@@ -5,11 +5,6 @@ import path from "path";
 // https://vite.dev/config/
 const commonConfig = defineConfig({
   plugins: [vue()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
 });
 
 const libConfig = defineConfig({

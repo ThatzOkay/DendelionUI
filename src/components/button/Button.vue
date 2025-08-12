@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { Color, ButtonColorUtils } from '@/types';
+import { Color, ButtonColorUtils } from '../../types';
 import { ButtonProps } from './interface';
 import classNames from 'classnames';
 import { computed } from 'vue';

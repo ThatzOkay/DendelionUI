@@ -1,5 +1,5 @@
 import { Size } from '@/types';
-import { Component } from 'vue';
+import { Component, VNode } from 'vue';
 
 export type TableProps<T> = {
 	zebra?: boolean;
@@ -17,7 +17,7 @@ export type TableProps<T> = {
 export type Column<T> = {
 	title: string;
 	data: string;
-	render?: (text: string, row: T) => string | ColumnComponent;
+	render?: (text: string, row: T) => string | ColumnComponent | VNode;
 	extraClasses?: ExtraClasses;
 };
 

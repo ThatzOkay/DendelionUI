@@ -23,7 +23,7 @@
 import { ref } from 'vue';
 import { ModalProps } from './interface';
 import classNames from 'classnames';
-import { Size, ButtonSizeUtils } from '@/types';
+import { Size, ButtonSizeUtils } from '../../types';
 
 const modal = ref<HTMLDialogElement | null>(null);
 
@@ -35,12 +35,12 @@ const props = withDefaults(defineProps<ModalProps>(), {
 	closeButtonSize: Size.SM,
 });
 
-const boxClasses = ref(classNames('modal-box', props.extraBoxClasses));
+const boxClasses = ref(classNames('modal-box', props.extraBoxClasses, {
+		'overflow-visible': props.overflow,
+	}));
 
 const classes = ref(
-	classNames('modal', {
-		'overflow-visible': props.overflow,
-	}),
+	classNames('modal'),
 );
 
 const closeButtonClasses = ref(

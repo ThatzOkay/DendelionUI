@@ -8,7 +8,7 @@
 import classNames from 'classnames';
 import { ref } from 'vue';
 import { CardProps } from './interface';
-import { Color, BackgroundColorUtils, RoundedSizeUtils } from '@/types';
+import { Color, BackgroundColorUtils, RoundedSizeUtils } from '../../types';
 
 const props = withDefaults(defineProps<CardProps>(), {
 	backgroundColor: Color.Primary,
