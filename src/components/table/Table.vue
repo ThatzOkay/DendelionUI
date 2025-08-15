@@ -11,24 +11,27 @@
 			<tr v-if="filteredDataSource.length === 0">
 				<td :colspan="props.columns.length">No data found</td>
 			</tr>
-			<tr :class="props.onRowClick ? 'hover' : ''" v-else v-for="(row, rowIndex) in filteredDataSource" v-bind:key="String(row)" @click="handleRowClick(row as T, rowIndex)">
-				<td v-for="column in props.columns" v-bind:key="column.title">
+			<tr :class="props.onRowClick ? 'hover' : ''" v-else v-for="(row, rowIndex) in filteredDataSource"
+				v-bind:key="JSON.stringify(row as T)" @click="handleRowClick(row as T, rowIndex)">
+				<td v-for="column in props.columns" :key="column.title">
 					<template v-if="!column.render">
 						{{ getValue(row, column.data) }}
 					</template>
-					<template v-if="typeof column.render === 'function'">
-						<div
-							v-if="typeof column.render(getValue(row, column.data), row as T) === 'string'"
-							v-html="column.render(getValue(row, column.data), row as T)"
-						/>
-
-						<component v-else-if="isVNode(column.render(getValue(row, column.data), row as T))" :is="column.render(getValue(row, column.data), row as T)" />
-
-						<component
-							v-else
-							:is="getComponent((column.render(getValue(row, column.data), row as T) as ColumnComponent).component)"
-							v-bind="getProps(row, column)"
-						/>
+					<template v-else-if="row">
+						<component v-slot="{ cell = renderedCell(row as T, column) }">
+							<div v-if="cell">
+								<div v-if="typeof cell === 'string'">
+									<div v-html="cell" />
+								</div>
+								<div v-else-if="isVNode(cell)">
+									<component :is="cell" />
+								</div>
+								<div v-else>
+									<component :is="getComponent((cell as ColumnComponent).component)"
+										v-bind="getProps(row as T, column)" />
+								</div>
+							</div>
+						</component>
 					</template>
 				</td>
 			</tr>
@@ -38,7 +41,7 @@
 
 <script setup lang="ts" generic="T">
 import { defineAsyncComponent, isVNode, onMounted, ref, watch } from 'vue';
-import type { Component } from 'vue';
+import type { Component, Ref } from 'vue';
 import { Column, ColumnComponent, ComponentImport, ComponentOrImport, TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, TableSizeUtils } from '../../types';
@@ -80,7 +83,7 @@ const getValue = (obj: any, keyPath: string): string => {
 	);
 };
 
-const getProps = (row: any, column: Column<T>) => {
+const getProps = (row: T, column: Column<T>) => {
 	if (column.render === undefined) return {};
 	const columnComponent = column.render(getValue(row, column.data), row as T) as ColumnComponent;
 	return columnComponent.props;
@@ -97,6 +100,11 @@ const getComponent = (component: ComponentOrImport) => {
 	return component as Component;
 };
 
+const renderedCell = (row: T, column: Column<T>) => {
+	if (!column.render) return getValue(row, column.data);
+	return column.render(getValue(row, column.data), row as T);
+};
+
 onMounted(() => {
 	originalDataSource.value = props.dataSource;
 	filteredDataSource.value = props.dataSource;
@@ -105,6 +113,7 @@ onMounted(() => {
 watch(
 	() => props.dataSource,
 	(value) => {
+		console.log('dataSource changed', value);
 		originalDataSource.value = value;
 		filteredDataSource.value = value;
 	},
