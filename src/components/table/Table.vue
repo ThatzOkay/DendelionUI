@@ -13,27 +13,8 @@
 			</tr>
 			<tr :class="props.onRowClick ? 'hover' : ''" v-else v-for="(row, rowIndex) in filteredDataSource"
 				v-bind:key="JSON.stringify(row as T)" @click="handleRowClick(row as T, rowIndex)">
-				<td v-for="column in props.columns" :key="column.title">
-					<template v-if="!column.render">
-						{{ getValue(row, column.data) }}
-					</template>
-					<template v-else-if="row">
-						<component v-slot="{ cell = renderedCell(row as T, column) }">
-							<div v-if="cell">
-								<div v-if="typeof cell === 'string'">
-									<div v-html="cell" />
-								</div>
-								<div v-else-if="isVNode(cell)">
-									<component :is="cell" />
-								</div>
-								<div v-else>
-									<component :is="getComponent((cell as ColumnComponent).component)"
-										v-bind="getProps(row as T, column)" />
-								</div>
-							</div>
-						</component>
-					</template>
-				</td>
+				<TableColumn v-for="column in props.columns" v-bind:key="column.data" :column="column" :row="row as T"
+					:rowIndex="rowIndex" />
 			</tr>
 		</tbody>
 	</table>
@@ -42,10 +23,11 @@
 <script setup lang="ts" generic="T">
 import { defineAsyncComponent, isVNode, onMounted, ref, watch } from 'vue';
 import type { Component, Ref } from 'vue';
-import { Column, ColumnComponent, ComponentImport, ComponentOrImport, TableProps } from './interface';
+import { Column, ColumnComponent, ComponentImport, ComponentOrImport, getValue, TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, TableSizeUtils } from '../../types';
 import createFuzzySearch from '@nozbe/microfuzz';
+import TableColumn from './TableColumn.vue';
 
 const originalDataSource = ref<T[]>([]);
 const filteredDataSource = ref<T[]>([]);
@@ -74,36 +56,7 @@ const handleRowClick = (row: T, rowIndex: number) => {
 }
 
 //I'll figure pagination later
-const getValue = (obj: any, keyPath: string): string => {
-	if (!obj || typeof obj !== 'object') return String(obj);
-	return String(
-		keyPath
-			.split('.')
-			.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj),
-	);
-};
 
-const getProps = (row: T, column: Column<T>) => {
-	if (column.render === undefined) return {};
-	const columnComponent = column.render(getValue(row, column.data), row as T) as ColumnComponent;
-	return columnComponent.props;
-};
-
-const getComponent = (component: ComponentOrImport) => {
-	console.log('getComponent', component);
-	if (component && typeof component === 'object' && 'then' in component) {
-		return defineAsyncComponent(() => component as ComponentImport);
-	}
-	if (typeof component === 'function') {
-		return defineAsyncComponent(component as () => ComponentImport);
-	}
-	return component as Component;
-};
-
-const renderedCell = (row: T, column: Column<T>) => {
-	if (!column.render) return getValue(row, column.data);
-	return column.render(getValue(row, column.data), row as T);
-};
 
 onMounted(() => {
 	originalDataSource.value = props.dataSource;

@@ -14,6 +14,12 @@ export type TableProps<T> = {
 	onRowClick?: (row: T, rowIndex: number) => Promise<void> | void;
 };
 
+export type ColumnProps<T> = {
+	column: Column<T>;
+	row: T;
+	rowIndex: number;
+};
+
 export type Column<T> = {
 	title: string;
 	data: string;
@@ -37,4 +43,13 @@ export type ComponentOrImport = Component | ComponentImport | (() => ComponentIm
 export type ColumnComponent = {
 	component: ComponentOrImport;
 	props: any;
+};
+
+export const getValue = (obj: any, keyPath: string): string => {
+	if (!obj || typeof obj !== 'object') return String(obj);
+	return String(
+		keyPath
+			.split('.')
+			.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj),
+	);
 };

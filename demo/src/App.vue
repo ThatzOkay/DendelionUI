@@ -22,6 +22,9 @@ const columns: Column<any>[] = [
     {
         title: 'Name',
         data: 'name',
+        render: (text: string, row: any) => {
+            return h('span', { class: 'font-bold' }, text);
+        }
     },
     {
         title: 'Age',
