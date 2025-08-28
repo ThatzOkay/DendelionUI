@@ -1,13 +1,13 @@
 <template>
 	<table ref="table" :class="tableClasses">
-		<thead>
+		<thead v-if="!horizontal">
 			<tr>
 				<th v-for="column in props.columns" v-bind:key="column.title">
 					{{ column.title }}
 				</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody v-if="!horizontal">
 			<tr v-if="filteredDataSource.length === 0">
 				<td :colspan="props.columns.length">No data found</td>
 			</tr>
@@ -17,13 +17,30 @@
 					:rowIndex="rowIndex" />
 			</tr>
 		</tbody>
+		<tbody v-if="horizontal">
+			<tr v-for="(column) in props.columns" :key="column.title">
+				<th>{{ column.title }}</th>
+				<TableColumn
+					v-for="(row, rowIndex) in filteredDataSource"
+					:key="rowIndex"
+					:column="column"
+					:row="row as T"
+					:rowIndex="rowIndex"
+				/>
+			</tr>
+
+			<tr v-if="filteredDataSource.length === 0">
+				<td :colspan="props.columns.length + 1" style="text-align:center; padding:1rem;">
+					No data found
+				</td>
+			</tr>
+		</tbody>
 	</table>
 </template>
 
 <script setup lang="ts" generic="T">
-import { defineAsyncComponent, isVNode, onMounted, ref, watch } from 'vue';
-import type { Component, Ref } from 'vue';
-import { Column, ColumnComponent, ComponentImport, ComponentOrImport, getValue, TableProps } from './interface';
+import { onMounted, ref, watch } from 'vue';
+import { getValue, TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, TableSizeUtils } from '../../types';
 import createFuzzySearch from '@nozbe/microfuzz';
@@ -39,6 +56,7 @@ const props = withDefaults(defineProps<TableProps<T>>(), {
 	zebra: false,
 	pinRows: false,
 	pinCols: false,
+	horizontal: false,
 });
 
 const tableClasses = ref(

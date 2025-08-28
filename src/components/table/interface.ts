@@ -5,6 +5,7 @@ export type TableProps<T> = {
 	zebra?: boolean;
 	pinRows?: boolean;
 	pinCols?: boolean;
+	horizontal?: boolean;
 	size?: Size;
 	columns: Column<T>[];
 	dataSource: T[];

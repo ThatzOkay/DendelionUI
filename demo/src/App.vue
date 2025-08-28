@@ -6,6 +6,7 @@
         <Modal extraBoxClasses="bg-base-100" :closeButton="true" @close="() => console.log('Modal closed')">
             <p>This is a modal dialog.</p>
         </Modal>
+        <Table :dataSource="dataSource" :columns="columns" :searchValue="searchValue" :horizontal="true" />
     </div>
 </template>
 
