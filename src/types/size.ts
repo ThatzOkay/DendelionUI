@@ -76,3 +76,22 @@ export class TableSizeUtils {
 		}
 	}
 }
+
+export class TabsSizeUtils {
+	public static toClassName(size: Size): string {
+		switch (size) {
+			case Size.XS:
+				return 'tabs-xs';
+			case Size.SM:
+				return 'tabs-sm';
+			case Size.MD:
+				return 'tabs-md';
+			case Size.LG:
+				return 'tabs-lg';
+			case Size.XL:
+				return 'tabs-xl';
+			default:
+				return 'tabs-md';
+		}
+	}
+}

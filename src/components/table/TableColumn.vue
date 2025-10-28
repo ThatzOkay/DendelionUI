@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, defineAsyncComponent, isVNode, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, isVNode, onMounted } from 'vue';
 import type { Component } from 'vue';
 import { Column, ColumnComponent, ColumnProps, ComponentImport, ComponentOrImport, getValue } from './interface';
 
@@ -55,8 +55,4 @@ const getComponent = (component: ComponentOrImport) => {
     return component as Component;
 };
 
-const renderCell = (row: T, column: Column<T>) => {
-    if (!column.render) return getValue(row, column.data);
-    return column.render(getValue(row, column.data), row as T);
-};
 </script>

@@ -1,12 +1,14 @@
 import { Size } from '@/types';
 import { Component, VNode } from 'vue';
 
+
 export type TableProps<T> = {
 	zebra?: boolean;
 	pinRows?: boolean;
 	pinCols?: boolean;
 	horizontal?: boolean;
 	size?: Size;
+	customRowClasses?: classNames.ArgumentArray;
 	columns: Column<T>[];
 	dataSource: T[];
 	ajax?: (params: object) => Promise<object> | string;

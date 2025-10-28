@@ -11,7 +11,7 @@
 			<tr v-if="filteredDataSource.length === 0">
 				<td :colspan="props.columns.length">No data found</td>
 			</tr>
-			<tr :class="props.onRowClick ? 'hover' : ''" v-else v-for="(row, rowIndex) in filteredDataSource"
+			<tr :class="trClasses" v-else v-for="(row, rowIndex) in filteredDataSource"
 				v-bind:key="JSON.stringify(row as T)" @click="handleRowClick(row as T, rowIndex)">
 				<TableColumn v-for="column in props.columns" v-bind:key="column.data" :column="column" :row="row as T"
 					:rowIndex="rowIndex" />
@@ -57,7 +57,13 @@ const props = withDefaults(defineProps<TableProps<T>>(), {
 	pinRows: false,
 	pinCols: false,
 	horizontal: false,
+	customRowClasses: undefined,
 });
+
+const trClasses = ref(classNames(
+	props.customRowClasses,
+	{ 'hover': props.onRowClick },
+));
 
 const tableClasses = ref(
 	classNames('table', TableSizeUtils.toClassName(props.size), {
@@ -84,7 +90,6 @@ onMounted(() => {
 watch(
 	() => props.dataSource,
 	(value) => {
-		console.log('dataSource changed', value);
 		originalDataSource.value = value;
 		filteredDataSource.value = value;
 	},
