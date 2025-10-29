@@ -8,7 +8,7 @@ export type TableProps<T> = {
 	pinCols?: boolean;
 	horizontal?: boolean;
 	size?: Size;
-	customRowClasses?: classNames.ArgumentArray;
+	customRowClasses?: string;
 	columns: Column<T>[];
 	dataSource: T[];
 	ajax?: (params: object) => Promise<object> | string;
