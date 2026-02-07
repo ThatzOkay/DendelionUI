@@ -64,7 +64,7 @@
     "autoprefixer": "^10.4.21",
     "cross-env": "^10.1.0",
     "daisyui": "^5.3.10",
-    "eslint": "^9.38.0",
+    "eslint": "^10.0.0",
     "eslint-plugin-vue": "^10.5.1",
     "fluid-tailwind": "^1.0.4",
     "prettier": "^3.6.2",
