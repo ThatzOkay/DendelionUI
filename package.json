@@ -1,79 +1,82 @@
 {
-  "name": "dendelion-ui",
-  "private": false,
-  "description": "Simpel component library using Tailwind css and DaisyUI",
-  "version": "0.0.24",
-  "author": "ThatzOkay",
-  "license": "MIT",
-  "homepage": "https://github.com/ThatzOkay/DendelionUI#readme",
-  "repository": {
-    "url": "git+https://github.com/ThatzOkay/DendelionUI.git",
-    "type": "git"
-  },
-  "bugs": {
-    "url": "https://github.com/ThatzOkay/DendelionUI/issues"
-  },
-  "keywords": [
-    "Tailwind",
-    "DaisyUI",
-    "Vue",
-    "Component",
-    "Library"
-  ],
-  "type": "module",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "main": "./dist/dendelion-ui.umd.js",
-  "module": "./dist/dendelion-ui.es.js",
-  "typings": "./dist/types/index.d.ts",
-  "types": "./dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/dendelion-ui.es.js",
-      "require": "./dist/dendelion-ui.umd.js"
-    }
-  },
-  "scripts": {
-    "dev": "cross-env MODE=demo npm run vite",
-    "vite": "vite",
-    "clean": "rimraf dist",
-    "build": "npm run clean && npm run build:lib && npm run build:tsc",
-    "build:lib": "cross-env MODE=lib vite build",
-    "build:tsc": "vue-tsc --emitDeclarationOnly",
-    "build:demo": "cross-env MODE=demo vite build",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "lint": "eslint ",
-    "lint:fix": "eslint --fix ",
-    "format": "prettier ./src --write",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@nozbe/microfuzz": "^1.0.0",
-    "classnames": "^2.5.1",
-    "fuzzysearch": "^1.0.3",
-    "vue": "^3.5.22"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/tsconfig": "^0.8.1",
-    "autoprefixer": "^10.4.21",
-    "cross-env": "^10.1.0",
-    "daisyui": "^5.3.10",
-    "eslint": "^9.38.0",
-    "eslint-plugin-vue": "^10.5.1",
-    "fluid-tailwind": "^1.0.4",
-    "prettier": "^3.6.2",
-    "prettier-eslint": "^16.4.2",
-    "prettier-plugin-tailwindcss": "^0.7.1",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.2",
-    "vite": "^7.1.12",
-    "vue-tsc": "^3.1.2"
-  }
+	"name": "dendelion-ui",
+	"private": false,
+	"description": "Simpel component library using Tailwind css and DaisyUI",
+	"version": "0.0.25",
+	"author": "ThatzOkay",
+	"license": "MIT",
+	"homepage": "https://github.com/ThatzOkay/DendelionUI#readme",
+	"repository": {
+		"url": "git+https://github.com/ThatzOkay/DendelionUI.git",
+		"type": "git"
+	},
+	"bugs": {
+		"url": "https://github.com/ThatzOkay/DendelionUI/issues"
+	},
+	"keywords": [
+		"Tailwind",
+		"DaisyUI",
+		"Vue",
+		"Component",
+		"Library"
+	],
+	"type": "module",
+	"files": [
+		"dist",
+		"src"
+	],
+	"main": "./dist/dendelion-ui.umd.js",
+	"module": "./dist/dendelion-ui.es.js",
+	"typings": "./dist/types/index.d.ts",
+	"types": "./dist/types/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/dendelion-ui.es.js",
+			"require": "./dist/dendelion-ui.umd.js"
+		}
+	},
+	"scripts": {
+		"dev": "cross-env MODE=demo npm run vite",
+		"vite": "vite",
+		"clean": "rimraf dist",
+		"build": "npm run clean && npm run build:lib && npm run build:tsc",
+		"build:lib": "cross-env MODE=lib vite build",
+		"build:tsc": "vue-tsc --emitDeclarationOnly",
+		"build:demo": "cross-env MODE=demo vite build",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs",
+		"lint": "eslint ",
+		"lint:fix": "eslint --fix ",
+		"format": "prettier ./src --write",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@nozbe/microfuzz": "^1.0.0",
+		"classnames": "^2.5.1",
+		"fuzzysearch": "^1.0.3"
+	},
+	"peerDependencies": {
+		"vue": "^3.3.0"
+	},
+	"devDependencies": {
+		"vue": "^3.5.28",
+		"@vitejs/plugin-vue": "^6.0.4",
+		"@vue/tsconfig": "^0.8.1",
+		"autoprefixer": "^10.4.24",
+		"cross-env": "^10.1.0",
+		"daisyui": "^5.5.18",
+		"eslint": "^10.0.0",
+		"eslint-plugin-vue": "^10.7.0",
+		"fluid-tailwind": "^1.0.4",
+		"prettier": "^3.8.1",
+		"prettier-eslint": "^16.4.2",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"rimraf": "^6.1.2",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.55.0",
+		"vite": "^7.3.1",
+		"vue-tsc": "^3.2.4"
+	}
 }
