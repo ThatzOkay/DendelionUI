@@ -13,16 +13,17 @@
 <script setup lang="ts">
 
 import { h, ref } from 'vue';
-import { Table, SearchBar, Column } from '../../src/index'
+import { Table, SearchBar, defineColumns } from '../../src/index'
 import SimpleButton from '../../src/components/button/SimpleButton.vue';
 import Modal from '../../src/components/modal/Modal.vue';
 
 const searchValue = ref<string>('')
 
-const columns: Column<any>[] = [
+const columns = defineColumns<any>()([
     {
         title: 'Name',
         data: 'name',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         render: (text: string, row: any) => {
             return h('span', { class: 'font-bold' }, text);
         }
@@ -42,7 +43,7 @@ const columns: Column<any>[] = [
             return h('button', { class: 'btn btn-neutral-content', onClick: () => console.log('clicked', _row) }, { default: () => 'Click me' });
         }
     }
-]
+]);
 
 
 // const renderButton = () => {

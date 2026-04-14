@@ -23,7 +23,7 @@ export type TableProps<T> = {
 	horizontal?: boolean;
 	size?: Size;
 	customRowClasses?: string;
-	columns: Column<T>[];
+	columns: Column<T, DeepKey<T>>[];
 	dataSource: T[];
 	ajax?: (params: object) => Promise<object> | string;
 	searchValue?: string;

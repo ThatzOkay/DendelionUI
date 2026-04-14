@@ -40,7 +40,7 @@
 
 <script setup lang="ts" generic="T">
 import { onMounted, ref, watch } from 'vue';
-import { getValue, TableProps } from './interface';
+import { TableProps } from './interface';
 import classNames from 'classnames';
 import { Size, TableSizeUtils } from '../../types';
 import createFuzzySearch from '@nozbe/microfuzz';
