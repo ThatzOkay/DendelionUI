@@ -68,3 +68,7 @@ export const getValue = <T, K extends DeepKey<T>>(obj: T, keyPath: K): DeepValue
 		.split('.')
 		.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj) as DeepValue<T, K & string>;
 };
+
+export const defineColumns = <T> () => {
+	return <K extends DeepKey<T>>(cols: Column<T, K>[]) => cols;
+}
