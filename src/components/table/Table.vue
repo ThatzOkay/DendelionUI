@@ -108,24 +108,44 @@ watch(
 	{ immediate: true },
 );
 
+const getDeepKeys = (obj: object, prefix = ""): string[] => {
+    return Object.keys(obj).flatMap((key) => {
+        const value = (obj as Record<string, unknown>)[key];
+        const fullKey = prefix ? `${prefix}.${key}` : key;
+        return value !== null && typeof value === "object"
+            ? getDeepKeys(value as object, fullKey)
+            : [fullKey];
+    });
+};
+
+const getDeepValue = (obj: unknown, path: string): unknown => {
+    return path.split(".").reduce((acc, key) => {
+        return acc !== null && typeof acc === "object"
+            ? (acc as Record<string, unknown>)[key]
+            : undefined;
+    }, obj);
+};
+
 const doFuzzySearch = (value: string): T[] => {
-	const foundRows: T[] = [];
-	if (originalDataSource.value.length > 0) {
-		const dataKeys = Object.keys(originalDataSource.value[0] as object);
+    const foundRows: T[] = [];
+    if (originalDataSource.value.length > 0) {
+        const deepKeys = getDeepKeys(originalDataSource.value[0] as object);
 
-		dataKeys.forEach((key) => {
-			const list = originalDataSource.value.map((row) => getValue(row, key));
-			const fuzzySearch = createFuzzySearch(list);
-			const found = fuzzySearch(value);
-			for (const item of found) {
-				const matchingItems = originalDataSource.value.filter((i) => getValue(i, key) === item.item);
-				foundRows.push(...(matchingItems as T[]));
-			}
-		});
+        deepKeys.forEach((key) => {
+            const list = originalDataSource.value.map((row) => getDeepValue(row, key));
+            const fuzzySearch = createFuzzySearch(list);
+            const found = fuzzySearch(value);
+            for (const item of found) {
+                const matchingItems = originalDataSource.value.filter(
+                    (i) => getDeepValue(i, key) === item.item
+                );
+                foundRows.push(...(matchingItems as T[]));
+            }
+        });
 
-		return foundRows;
-	}
+        return [...new Set(foundRows)];
+    }
 
-	return [];
+    return [];
 };
 </script>

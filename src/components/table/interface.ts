@@ -1,6 +1,20 @@
 import { Size } from '@/types';
 import { Component, VNode } from 'vue';
 
+type DeepKey<T> = T extends object
+    ? {
+          [K in keyof T & string]: K | `${K}.${DeepKey<T[K]>}`;
+      }[keyof T & string]
+    : never;
+
+type DeepValue<T, P extends string> = P extends `${infer K}.${infer Rest}`
+    ? K extends keyof T
+        ? DeepValue<T[K], Rest>
+        : never
+    : P extends keyof T
+    ? T[P]
+    : never;
+
 
 export type TableProps<T> = {
 	zebra?: boolean;
@@ -23,11 +37,11 @@ export type ColumnProps<T> = {
 	rowIndex: number;
 };
 
-export type Column<T> = {
-	title: string;
-	data: string;
-	render?: (text: string, row: T) => string | ColumnComponent | VNode;
-	extraClasses?: ExtraClasses;
+export type Column<T, K extends DeepKey<T> = DeepKey<T>> = {
+    title: string;
+    data: K;
+    render?: (text: DeepValue<T, K & string>, row: T) => string | ColumnComponent | VNode;
+    extraClasses?: ExtraClasses;
 };
 
 export type ExtraClasses = {
@@ -48,11 +62,9 @@ export type ColumnComponent = {
 	props: any;
 };
 
-export const getValue = (obj: any, keyPath: string): string => {
-	if (!obj || typeof obj !== 'object') return String(obj);
-	return String(
-		keyPath
-			.split('.')
-			.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj),
-	);
+export const getValue = <T, K extends DeepKey<T>>(obj: T, keyPath: K): DeepValue<T, K & string> => {
+	if (!obj || typeof obj !== 'object') return String(obj) as DeepValue<T, K & string>;
+	return keyPath
+		.split('.')
+		.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj) as DeepValue<T, K & string>;
 };
