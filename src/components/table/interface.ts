@@ -1,4 +1,4 @@
-import { Size } from '@/types';
+import { Size, type ClassValue } from '@/types';
 import { Component, VNode } from 'vue';
 
 type DeepKey<T> = T extends object
@@ -15,15 +15,17 @@ type DeepValue<T, P extends string> = P extends `${infer K}.${infer Rest}`
     ? T[P]
     : never;
 
+type ColumnSet<T> = Column<T, DeepKey<T>>[];
 
 export type TableProps<T> = {
+	class?: ClassValue | undefined;
 	zebra?: boolean;
 	pinRows?: boolean;
 	pinCols?: boolean;
 	horizontal?: boolean;
 	size?: Size;
 	customRowClasses?: string;
-	columns: Column<T, DeepKey<T>>[];
+	columns: ColumnSet<T>;
 	dataSource: T[];
 	ajax?: (params: object) => Promise<object> | string;
 	searchValue?: string;
@@ -69,6 +71,6 @@ export const getValue = <T, K extends DeepKey<T>>(obj: T, keyPath: K): DeepValue
 		.reduce<unknown>((acc, key) => acc && (typeof acc === 'object' ? (acc as Record<string, any>)[key] : acc), obj) as DeepValue<T, K & string>;
 };
 
-export const defineColumns = <T> () => {
-	return <K extends DeepKey<T>>(cols: Column<T, K>[]) => cols;
+export const defineColumns = <T>() => {
+    return <K extends DeepKey<T>>(cols: Column<T, K>[]): Column<T>[] => cols as unknown as Column<T>[];
 }

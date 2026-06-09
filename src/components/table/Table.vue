@@ -66,7 +66,9 @@ const trClasses = ref(classNames(
 ));
 
 const tableClasses = ref(
-	classNames('table', TableSizeUtils.toClassName(props.size), {
+	classNames(
+		props.class,
+		'table', TableSizeUtils.toClassName(props.size), {
 		'table-zebra': props.zebra,
 		'table-pin-rows': props.pinRows,
 		'table-pin-cols	': props.pinCols,
