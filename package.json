@@ -71,7 +71,7 @@
 		"eslint-plugin-vue": "^10.9.2",
 		"fluid-tailwind": "^1.0.4",
 		"prettier": "^3.8.3",
-		"prettier-eslint": "^16.4.2",
+		"prettier-eslint": "^17.0.0",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"rimraf": "^6.1.2",
 		"typescript": "^6.0.0",
