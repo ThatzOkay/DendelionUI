@@ -2,8 +2,8 @@
 	<table ref="table" :class="tableClasses">
 		<thead v-if="!horizontal">
 			<tr>
-				<th v-for="column in props.columns" v-bind:key="column.title">
-					{{ column.title }}
+				<th v-for="column in props.columns" v-bind:key="column.data">
+					{{ column.title == null ? '' : (typeof column.title === 'function' ? column.title(originalDataSource as T[]) : column.title) }}
 				</th>
 			</tr>
 		</thead>
@@ -18,8 +18,8 @@
 			</tr>
 		</tbody>
 		<tbody v-if="horizontal">
-			<tr v-for="(column) in props.columns" :key="column.title">
-				<th>{{ column.title }}</th>
+			<tr v-for="(column) in props.columns" :key="column.data">
+				<th>{{ column.title == null ? '' : (typeof column.title === 'function' ? column.title(originalDataSource as T[]) : column.title) }}</th>
 				<TableColumn
 					v-for="(row, rowIndex) in filteredDataSource"
 					:key="rowIndex"
@@ -41,9 +41,9 @@
 <script setup lang="ts" generic="T">
 import { onMounted, ref, watch } from 'vue';
 import { TableProps } from './interface';
-import classNames from 'classnames';
+import { classNames } from '../../utils/classNames';
 import { Size, TableSizeUtils } from '../../types';
-import createFuzzySearch from '@nozbe/microfuzz';
+import Fuse from 'fuse.js';
 import TableColumn from './TableColumn.vue';
 
 const originalDataSource = ref<T[]>([]);
@@ -120,34 +120,15 @@ const getDeepKeys = (obj: object, prefix = ""): string[] => {
     });
 };
 
-const getDeepValue = (obj: unknown, path: string): unknown => {
-    return path.split(".").reduce((acc, key) => {
-        return acc !== null && typeof acc === "object"
-            ? (acc as Record<string, unknown>)[key]
-            : undefined;
-    }, obj);
-};
-
 const doFuzzySearch = (value: string): T[] => {
-    const foundRows: T[] = [];
     if (originalDataSource.value.length > 0) {
         const deepKeys = getDeepKeys(originalDataSource.value[0] as object);
-
-        deepKeys.forEach((key) => {
-            const list = originalDataSource.value.map((row) => getDeepValue(row, key));
-            const fuzzySearch = createFuzzySearch(list);
-            const found = fuzzySearch(value);
-            for (const item of found) {
-                const matchingItems = originalDataSource.value.filter(
-                    (i) => getDeepValue(i, key) === item.item
-                );
-                foundRows.push(...(matchingItems as T[]));
-            }
+        const fuse = new Fuse(originalDataSource.value as T[], {
+            keys: deepKeys,
+            threshold: 0.4,
         });
-
-        return [...new Set(foundRows)];
+        return fuse.search(value).map((result) => result.item);
     }
-
     return [];
 };
 </script>

@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ModalProps } from './interface';
-import classNames from 'classnames';
+import { classNames } from '../../utils/classNames';
 import { Size, ButtonSizeUtils } from '../../types';
 
 const modal = ref<HTMLDialogElement | null>(null);

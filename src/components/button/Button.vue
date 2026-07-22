@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { Color, ButtonColorUtils } from '../../types';
 import { ButtonProps } from './interface';
-import classNames from 'classnames';
+import { classNames } from '../../utils/classNames';
 import { computed } from 'vue';
 
 const props = withDefaults(defineProps<ButtonProps>(), {

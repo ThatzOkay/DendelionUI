@@ -31,19 +31,40 @@ const libConfig = defineConfig({
   ],
 });
 
+const moduleConfig = defineConfig({
+  ...commonConfig,
+  build: {
+    minify: true,
+    emptyOutDir: false,
+    lib: {
+      entry: path.resolve(__dirname, "src/module.ts"),
+      formats: ['es'],
+      fileName: () => "module.mjs",
+    },
+    rollupOptions: {
+      external: ["vue", "@nuxt/kit"],
+    },
+  },
+  plugins: [
+    vue()
+  ],
+});
+
 const demoConfig = defineConfig({
   ...commonConfig,
   root: "./demo",
 });
 
 export default defineConfig(({ command }) => {
-  const executionMode: "lib" | "demo" =
-    (process.env.MODE as "lib" | "demo") || "lib";
+  const executionMode: "lib" | "module" | "demo" =
+    (process.env.MODE as "lib" | "module" | "demo") || "lib";
 
   const mode = command === "build" ? "production" : "development";
 
   if (executionMode === "demo") {
     return { ...demoConfig, mode };
+  } else if (executionMode === "module") {
+    return { ...moduleConfig, mode };
   } else if (executionMode === "lib") {
     return { ...libConfig, mode };
   }

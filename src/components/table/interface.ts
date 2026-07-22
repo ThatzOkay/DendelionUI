@@ -40,7 +40,7 @@ export type ColumnProps<T> = {
 };
 
 export type Column<T, K extends DeepKey<T> = DeepKey<T>> = {
-    title: string;
+	title: string | ((rows: T[]) => string);
     data: K;
     render?: (text: DeepValue<T, K & string>, row: T) => string | ColumnComponent | VNode;
     extraClasses?: ExtraClasses;
